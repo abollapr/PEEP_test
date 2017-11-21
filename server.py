@@ -92,7 +92,7 @@ class PEEPServerProtocol(StackingProtocol):
             return False
 
     def connection_made(self, transport):
-        print("\n================== PEEP Server Connection_made Called =========================")
+        print("\n================== PEEP Server Connection_made Called121231231313123123 =========================")
         self.transport = transport
 
     async def synackx_timeout(self):
@@ -297,8 +297,9 @@ class PEEPServerProtocol(StackingProtocol):
 
     def update_sending_window(self, packet):
         self.packet = packet
-        self.sending_window_count += 1
+        #self.sending_window_count += 1
         #self.key = self.prev_sequence_number + self.prev_packet_size
+        self.sending_window_count = len(self.sending_window)
         self.key = self.global_number_seq
         self.sending_window[self.key] = self.packet
         return self.packet
@@ -344,7 +345,8 @@ class PEEPServerProtocol(StackingProtocol):
                 #print("Key value to pop is", key)
                 self.sending_window.pop(key)
                 #self.keylist1.pop(0)
-                self.sending_window_count = self.sending_window_count - 1
+                self.sending_window_count = len(self.sending_window)
+                #self.sending_window_count = self.sending_window_count - 1
                 print("#Server Window#:", self.keylist1)
                 print("Sending window count is", self.sending_window_count)
                 if self.sending_window_count <= 100:
