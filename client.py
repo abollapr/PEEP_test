@@ -344,8 +344,8 @@ class PEEPClient(StackingProtocol):
 
     def update_sending_window(self, packet):
         self.packet = packet
-        self.sending_window_count += 1
         self.key = self.global_number_seq
+        self.sending_window_count = len(self.sending_window)
         self.sending_window[self.key] = self.packet
         return self.packet
 
@@ -366,7 +366,8 @@ class PEEPClient(StackingProtocol):
                         self.t.pop(chabi)
                 self.sending_window.pop(key)
                 #self.keylist1.pop(0)
-                self.sending_window_count = self.sending_window_count - 1
+                #self.sending_window_count = self.sending_window_count - 1
+                self.sending_window_count = len(self.sending_window)
                 print ("#Client Window#:",self.keylist1)
                 print("client: sending window count is", self.sending_window_count)
                 if self.sending_window_count <= 99:
